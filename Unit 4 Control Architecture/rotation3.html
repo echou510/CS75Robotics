@@ -1,0 +1,94 @@
+<html>
+    <head>
+      <style> 
+          #canvas{
+              background-color: beige;
+              border: 10px solid aqua; 
+          }  
+      </style>
+
+    </head>
+  <body>
+    <canvas id="canvas" width="800px" height="600">A graphic canvas</canvas> 
+    <script> 
+         var canvas = document.getElementById("canvas"); 
+         var g = canvas.getContext('2d'); 
+         // Initial location
+         var x = 0;
+         var y = 0;
+         var cycle_time = 50; 
+         var v = 0.5; // degree per tick; 
+         // draw a dot
+         function Dot(g, x, y, color){
+            g.beginPath(); 
+            g.fillStyle = color; 
+            g.arc(x, y, 10, 0, 2*Math.PI); 
+            g.fill(); 
+            g.closePath(); 
+         }
+         function Line(g, x0, y0, x1, y1, color, width){
+            g.beginPath(); 
+            g.strokeStyle = color; 
+            g.lineWidth = width; 
+            g.setLineDash([]);
+            g.moveTo(x0, y0); 
+            g.lineTo(x1, y1); 
+            g.stroke(); 
+            g.closePath(); 
+         }
+         function UnitCircle(g, cx, cy, radius, color, width){
+            g.beginPath(); 
+            g.strokeStyle = color; 
+            g.lineWidth = width; 
+            g.setLineDash([15, 5]);
+            g.arc(cx,cy, radius, 0, 2 * Math.PI, false);
+            g.stroke(); 
+            g.closePath(); 
+         }
+         function getXY(x, y){
+            var xo= Math.floor( x * 250 + canvas.width/2); 
+            var yo= Math.floor(-y * 250 + canvas.height/2); 
+            
+            return [xo, yo]; 
+         }
+         // clear the whole canvas
+         function clear(g, canvas, color){
+             var w = canvas.width; 
+             var h = canvas.height; 
+             g.fillStyle = color; 
+             g.fillRect(0, 0, w, h); 
+         }
+
+         function drawScreen(){
+              Line(g, 0, 300, 800, 300, 'rgb(200, 200, 200)', 10); 
+              Line(g, 400, 0, 400, 600, 'rgb(200, 200, 200)', 10); 
+              UnitCircle(g, 400, 300, 250, 'rgb(150, 150, 150)', 8); 
+              
+              Dot(g, x, y, 'black'); 
+         }
+        
+         function setup(){
+              var c = 0;
+              var id = setInterval(paint, cycle_time);
+              function paint() {
+                if (c == 2000) {
+                  clearInterval(id);
+                } else {
+                  clear(g, canvas, 'beige');
+                  xnew = Math.cos((c*v*Math.PI)/180); 
+                  ynew = Math.sin((c*v*Math.PI)/180); 
+                  xy = getXY(xnew, ynew);
+                  x = xy[0]; 
+                  y = xy[1]; 
+                  drawScreen(); 
+
+                  c++; 
+                }
+              }
+            }
+        
+         // --- main ----
+         setup(); 
+    </script>
+  </body>
+</html> 
