@@ -1,0 +1,7 @@
+10:20:26 From  Eric Chou  to  Everyone:
+	https://scikit-learn.org/stable/
+10:30:08 From  Eric Chou  to  Everyone:
+	https://vscode.dev/
+10:34:51 From  Spencer Blauw  to  Everyone:
+	Can we use the ATOM editor as well?
+ Answer: Dr. Chou:  Of course, OK. 
